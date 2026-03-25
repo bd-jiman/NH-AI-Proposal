@@ -1,0 +1,74 @@
+/* 서비스 등록 컨텐츠 스타일 (registration.css) */
+:root {
+    --border-gray: #dcdfe6;
+    --th-bg: #f5f7fa;
+    --nh-blue-light: #7ca9e1;
+    --nh-blue-main: #4a90e2;
+}
+
+/* 타이틀 및 요약 */
+.page-title-area {
+    margin-bottom: 30px;
+}
+.page-title-area h1 { font-size: 24px; margin-bottom: 8px; }
+.page-title-area p { font-size: 14px; color: #606266; }
+
+/* 2컬럼 레이아웃 */
+.content-wrapper { display: flex; gap: 30px; }
+.left-form { flex: 7; }
+.right-auth { flex: 3; display: flex; flex-direction: column; }
+
+/* 섹션 및 배지 */
+.section { margin-bottom: 35px; }
+.section-title {
+    font-size: 18px; font-weight: bold; margin-bottom: 15px;
+    display: flex; align-items: center; gap: 10px;
+}
+.badge {
+    background-color: var(--nh-blue-main); color: #fff;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+
+/* 표 형태의 입력창 (가장 핵심적인 부분) */
+.form-table {
+    width: 100%; border-collapse: collapse; background: #fff;
+    border: 1px solid var(--border-gray);
+}
+.form-table th, .form-table td {
+    border: 1px solid var(--border-gray); padding: 10px 15px;
+    font-size: 14px; text-align: left;
+}
+.form-table th { background: var(--th-bg); width: 150px; font-weight: normal; color: #555; }
+
+/* 입력 필드 및 버튼 */
+input[type="text"], select {
+    width: 100%; padding: 8px; border: 1px solid #dcdfe6; border-radius: 4px;
+}
+.btn-config {
+    background: var(--nh-blue-light); color: white; border: none;
+    padding: 7px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;
+}
+
+/* 권한 및 조직도 */
+.auth-box {
+    background: #fff; border: 1px solid var(--border-gray);
+    padding: 20px; border-radius: 4px; flex-grow: 1; min-height: 300px;
+}
+.org-tree { border: 1px solid #eee; padding: 15px; border-radius: 4px; margin-top: 15px; }
+.tree-item { font-size: 13px; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+.indent-1 { margin-left: 20px; }
+.indent-2 { margin-left: 40px; }
+
+/* 하단 버튼 */
+.bottom-buttons { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+.btn-submit { background: var(--nh-blue-main); color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+.btn-cancel { background: #aab2bd; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+
+/* 토글 스위치 */
+.switch { position: relative; display: inline-block; width: 44px; height: 22px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 22px; }
+.slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: #67c23a; }
+input:checked + .slider:before { transform: translateX(20px); }

@@ -1,0 +1,223 @@
+:root {
+    --bg-light: #f7f9fc;
+    --nh-blue: #4a90e2;
+    --border-gray: #dcdfe6;
+    --th-bg: #f5f7fa;
+    --text-main: #303133;
+    --text-sub: #606266;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Malgun Gothic', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    padding: 40px;
+    color: var(--text-main);
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 타이틀 영역 */
+.page-title-area {
+    margin-bottom: 30px;
+}
+
+.page-title-area h1 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.page-title-area p {
+    font-size: 14px;
+    color: var(--text-sub);
+}
+
+/* 메인 레이아웃 */
+.content-wrapper {
+    display: flex;
+    gap: 30px;
+}
+
+.left-form {
+    flex: 7;
+}
+
+.right-auth {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 섹션 공통 */
+.section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.badge {
+    background-color: var(--nh-blue);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* 테이블 형태의 폼 */
+.form-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid var(--border-gray);
+}
+
+.form-table th, .form-table td {
+    border: 1px solid var(--border-gray);
+    padding: 10px 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.form-table th {
+    background-color: var(--th-bg);
+    width: 160px;
+    font-weight: normal;
+    color: #555;
+}
+
+/* 입력 요소 */
+input[type="text"], select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #606266;
+}
+
+.right-align {
+    text-align: right !important;
+}
+
+/* 버튼 스타일 */
+.btn-blue-outline {
+    background: #7ca9e1;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.owner-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* 권한 설정 박스 */
+.auth-box {
+    background: white;
+    border: 1px solid var(--border-gray);
+    padding: 20px;
+    border-radius: 4px;
+    min-height: 300px;
+}
+
+.sub-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.full-select {
+    margin-bottom: 20px;
+}
+
+.org-tree {
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.tree-item {
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.indent-1 { margin-left: 20px; }
+.indent-2 { margin-left: 40px; }
+
+/* 하단 버튼 */
+.bottom-buttons {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn-gray {
+    background: #aab2bd;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-blue {
+    background: var(--nh-blue);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* 토글 스위치 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc; transition: .4s; border-radius: 22px;
+}
+.slider:before {
+    position: absolute; content: ""; height: 16px; width: 16px;
+    left: 4px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%;
+}
+input:checked + .slider { background-color: #67c23a; }
+input:checked + .slider:before { transform: translateX(20px); }

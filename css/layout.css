@@ -1,0 +1,117 @@
+:root {
+    --nh-green: #00843D;
+    --nh-yellow: #FFCD00;
+    --nh-blue: #005696;
+    --white: #ffffff;
+    --bg-light: #ffffff; /* 배경색을 흰색으로 변경 */
+    --header-height: 70px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Malgun Gothic', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+}
+
+/* 상단 영역 (Top Area) */
+header {
+    height: var(--header-height);
+    background-color: var(--nh-green); /* 배경: 농협 초록 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+    background: white; /* 로고 영역을 흰색 배경으로 감싸서 파란 글씨가 잘 보이게 함 */
+    padding: 6px 15px;
+    border-radius: 4px;
+}
+
+.logo-img {
+    height: 28px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--nh-blue); /* NH 농협: 파란색 */
+    letter-spacing: -1px;
+}
+
+.service-name-divider {
+    width: 1px;
+    height: 24px;
+    background-color: rgba(255,255,255,0.4);
+    margin: 0 25px;
+}
+
+.service-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.5px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.9);
+}
+
+.user-dept {
+    color: rgba(255,255,255,0.7);
+}
+
+.user-name strong {
+    color: var(--white);
+}
+
+.logout-btn {
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.1);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* 메인 래퍼 */
+.wrapper {
+    margin-top: var(--header-height);
+    padding: 40px;
+}
+
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
