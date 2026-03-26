@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>연계 운영 가시성 및 통제 체계 예시</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    .header {
+      margin-bottom: 24px;
+    }
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 0 0 10px;
+    }
+    .subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #4b5563;
+      max-width: 980px;
+      margin: 0;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 24px 0 28px;
+    }
+    .summary-card, .panel {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+    .summary-card {
+      padding: 20px;
+    }
+    .summary-label {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+    .summary-value {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .summary-desc {
+      font-size: 13px;
+      color: #4b5563;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .panel {
+      padding: 22px;
+    }
+    .panel-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+    .panel-subtitle {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    thead th {
+      text-align: left;
+      padding: 12px 10px;
+      background: #f8fafc;
+      color: #374151;
+      border-bottom: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #eef2f7;
+      vertical-align: middle;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tag-success { background: #dcfce7; color: #166534; }
+    .tag-fail { background: #fee2e2; color: #991b1b; }
+    .tag-progress { background: #dbeafe; color: #1d4ed8; }
+    .tag-wait { background: #fef3c7; color: #92400e; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: #374151;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+    }
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .chart-box {
+      padding-top: 4px;
+    }
+    .chart-title {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    /* Donut */
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .donut {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background:
+        conic-gradient(
+          #22c55e 0 54%,
+          #ef4444 54% 72%,
+          #3b82f6 72% 88%,
+          #f59e0b 88% 100%
+        );
+      position: relative;
+      flex-shrink: 0;
+    }
+    .donut::after {
+      content: "1,284\A건";
+      white-space: pre;
+      position: absolute;
+      inset: 28px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 800;
+      font-size: 24px;
+      color: #111827;
+      line-height: 1.15;
+    }
+    .legend {
+      display: grid;
+      gap: 10px;
+      width: 100%;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+    }
+    .legend-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-success { background: #22c55e; }
+    .dot-fail { background: #ef4444; }
+    .dot-progress { background: #3b82f6; }
+    .dot-wait { background: #f59e0b; }
+    .legend-value {
+      font-weight: 800;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    /* Bars */
+    .bar-chart {
+      display: grid;
+      gap: 12px;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 96px 1fr 56px;
+      align-items: center;
+      gap: 12px;
+    }
+    .bar-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+    }
+    .bar-track {
+      width: 100%;
+      height: 14px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+    .bar-success { background: linear-gradient(90deg, #60a5fa, #2563eb); }
+    .bar-daily { background: linear-gradient(90deg, #93c5fd, #1d4ed8); }
+    .bar-value {
+      font-size: 13px;
+      font-weight: 800;
+      color: #111827;
+      text-align: right;
+    }
+
+    .trend-chart {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      height: 230px;
+      padding: 12px 4px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .trend-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .trend-bar-wrap {
+      width: 100%;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      height: 180px;
+    }
+    .trend-bar {
+      width: 32px;
+      background: linear-gradient(180deg, #60a5fa, #1d4ed8);
+      border-radius: 12px 12px 0 0;
+      min-height: 18px;
+    }
+    .trend-value {
+      font-size: 12px;
+      font-weight: 700;
+      color: #374151;
+    }
+    .trend-label {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .footnote {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 1200px) {
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .page { padding: 18px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .donut-wrap { flex-direction: column; align-items: flex-start; }
+      .bar-row { grid-template-columns: 1fr; }
+      .trend-bar { width: 22px; }
+      table { font-size: 12px; }
+      .title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="eyebrow">Integration Monitoring Dashboard</div>
+      <h1 class="title">연계 운영 가시성 및 통제 체계 예시</h1>
+      <p class="subtitle">
+        인터페이스별 호출 이력, 처리 결과, 재처리 상태와 함께 상태별 처리 건수, 성공률/실패율,
+        일별 수집 건수 추이를 한 화면에서 통합적으로 확인할 수 있는 예시 화면입니다.
+      </p>
+    </div>
+
+    <section class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-label">총 인터페이스 수</div>
+        <div class="summary-value">24</div>
+        <div class="summary-desc">운영중 19 / 점검 5</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">금일 총 처리 건수</div>
+        <div class="summary-value">1,284</div>
+        <div class="summary-desc">전일 대비 +8.6%</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">성공률</div>
+        <div class="summary-value">92.4%</div>
+        <div class="summary-desc">실패율 7.6%</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">재처리 필요 건</div>
+        <div class="summary-value">18</div>
+        <div class="summary-desc">우선 점검 대상 4건</div>
+      </div>
+    </section>
+
+    <section class="main-grid">
+      <div class="panel">
+        <h2 class="panel-title">인터페이스 처리 이력</h2>
+        <div class="panel-subtitle">
+          IF 코드 기준으로 연계 대상, 수행 시각, 처리 상태, 처리 결과 및 재처리 조치 여부를 확인할 수 있습니다.
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>IF코드</th>
+              <th>연계대상</th>
+              <th>수행일시</th>
+              <th>처리상태</th>
+              <th>처리결과</th>
+              <th>조치</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>IF-001</td>
+              <td>그룹웨어 공지</td>
+              <td>2026-03-25 01:00</td>
+              <td><span class="tag tag-success">성공</span></td>
+              <td>120건 수집 완료</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>IF-002</td>
+              <td>사내규정 시스템</td>
+              <td>2026-03-25 01:30</td>
+              <td><span class="tag tag-fail">실패</span></td>
+              <td>API Timeout</td>
+              <td><button class="btn btn-primary">재처리</button></td>
+            </tr>
+            <tr>
+              <td>IF-003</td>
+              <td>업무매뉴얼 저장소</td>
+              <td>2026-03-25 02:00</td>
+              <td><span class="tag tag-progress">진행중</span></td>
+              <td>본문 추출 처리중</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>IF-004</td>
+              <td>사내문서 공유폴더</td>
+              <td>2026-03-25 02:10</td>
+              <td><span class="tag tag-success">성공</span></td>
+              <td>87건 인덱싱 반영</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>IF-005</td>
+              <td>ERP 매뉴얼 연계</td>
+              <td>2026-03-25 02:40</td>
+              <td><span class="tag tag-wait">대기</span></td>
+              <td>스케줄 대기중</td>
+              <td><button class="btn">상세보기</button></td>
+            </tr>
+            <tr>
+              <td>IF-006</td>
+              <td>규정 개정 이력</td>
+              <td>2026-03-25 03:00</td>
+              <td><span class="tag tag-fail">실패</span></td>
+              <td>파일 잠금 충돌</td>
+              <td><button class="btn btn-primary">재처리</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="footnote">※ 예시 화면으로, 실제 구축 시 컬럼 및 상태값은 업무 기준에 따라 조정 가능합니다.</div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="panel chart-box">
+          <div class="chart-title">상태별 처리 건수</div>
+          <div class="donut-wrap">
+            <div class="donut"></div>
+            <div class="legend">
+              <div class="legend-item">
+                <div class="legend-left"><span class="dot dot-success"></span><span>성공</span></div>
+                <div class="legend-value">694건 (54%)</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-left"><span class="dot dot-fail"></span><span>실패</span></div>
+                <div class="legend-value">231건 (18%)</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-left"><span class="dot dot-progress"></span><span>진행중</span></div>
+                <div class="legend-value">205건 (16%)</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-left"><span class="dot dot-wait"></span><span>대기</span></div>
+                <div class="legend-value">154건 (12%)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel chart-box">
+          <div class="chart-title">인터페이스별 성공률 / 실패율</div>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label">그룹웨어</div>
+              <div class="bar-track"><div class="bar-fill bar-success" style="width:94%"></div></div>
+              <div class="bar-value">94%</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">사내규정</div>
+              <div class="bar-track"><div class="bar-fill bar-success" style="width:81%"></div></div>
+              <div class="bar-value">81%</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">업무매뉴얼</div>
+              <div class="bar-track"><div class="bar-fill bar-success" style="width:88%"></div></div>
+              <div class="bar-value">88%</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">사내문서</div>
+              <div class="bar-track"><div class="bar-fill bar-success" style="width:97%"></div></div>
+              <div class="bar-value">97%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel chart-box">
+          <div class="chart-title">일별 수집 건수 추이</div>
+          <div class="trend-chart">
+            <div class="trend-col">
+              <div class="trend-value">118</div>
+              <div class="trend-bar-wrap"><div class="trend-bar" style="height:42%"></div></div>
+              <div class="trend-label">03/19</div>
+            </div>
+            <div class="trend-col">
+              <div class="trend-value">146</div>
+              <div class="trend-bar-wrap"><div class="trend-bar" style="height:52%"></div></div>
+              <div class="trend-label">03/20</div>
+            </div>
+            <div class="trend-col">
+              <div class="trend-value">165</div>
+              <div class="trend-bar-wrap"><div class="trend-bar" style="height:58%"></div></div>
+              <div class="trend-label">03/21</div>
+            </div>
+            <div class="trend-col">
+              <div class="trend-value">182</div>
+              <div class="trend-bar-wrap"><div class="trend-bar" style="height:64%"></div></div>
+              <div class="trend-label">03/22</div>
+            </div>
+            <div class="trend-col">
+              <div class="trend-value">210</div>
+              <div class="trend-bar-wrap"><div class="trend-bar" style="height:74%"></div></div>
+              <div class="trend-label">03/23</div>
+            </div>
+            <div class="trend-col">
+              <div class="trend-value">236</div>
+              <div class="trend-bar-wrap"><div class="trend-bar" style="height:83%"></div></div>
+              <div class="trend-label">03/24</div>
+            </div>
+            <div class="trend-col">
+              <div class="trend-value">284</div>
+              <div class="trend-bar-wrap"><div class="trend-bar" style="height:100%"></div></div>
+              <div class="trend-label">03/25</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
